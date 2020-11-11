@@ -37,7 +37,6 @@ public class Life implements ILife {
         this.board[x][y] = 0;
       }
     }
-
   }
 
   @Override
@@ -67,18 +66,17 @@ public class Life implements ILife {
     for(int y = 0; y < height; y++){
       for (int x = 0; x < width; x++){
         int aliveNeighbours = countAliveNeughbours(x, y);
-        if(this.board[x][y] == 1){
-          if(aliveNeighbours < 2){
-            tempBoard[x][y] = 0;
-          }else if(aliveNeighbours == 2 || aliveNeighbours == 3){
-            tempBoard[x][y] = 1;
-          }else if (aliveNeighbours > 3){
-            tempBoard[x][y] = 0;
-          }
-        }else{
-          if(aliveNeighbours == 3){
-            tempBoard[x][y] = 1;
-          }
+        if(isAlive(x, y) == 0 && aliveNeighbours == 3){
+          tempBoard[x][y] = 1;
+        }
+        else if(isAlive(x, y) == 1 && aliveNeighbours < 2){
+          tempBoard[x][y] = 0;
+        }
+        else if(isAlive(x, y) == 1 && (aliveNeighbours == 2 || aliveNeighbours == 3)){
+          tempBoard[x][y] = 1;
+        }
+        else if (isAlive(x, y) == 1 && (aliveNeighbours > 3)){
+          tempBoard[x][y] = 0;
         }
       }
     }
