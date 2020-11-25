@@ -1,7 +1,7 @@
 public class Life implements ILife {
-  int width;
-  int height;
-  int[][] board;
+  private int width;
+  private int height;
+  private int[][] board;
   
   public static void main(String[] args) {
   }
@@ -50,14 +50,17 @@ public class Life implements ILife {
   }
 
   @Override
-  public int isAlive(int x, int y) {
+  public boolean isAlive(int x, int y) {
     if(x < 0 || x >= width){
-      return 0;
+      return false;
     }
     if(y < 0 || y >= height){
-      return 0;
+      return false;
     }
-    return this.board[x][y];
+    if(this.board[x][y] == 1){
+      return true;
+    }
+    return false;
   }
 
   @Override
@@ -66,16 +69,16 @@ public class Life implements ILife {
     for(int y = 0; y < height; y++){
       for (int x = 0; x < width; x++){
         int aliveNeighbours = countAliveNeughbours(x, y);
-        if(isAlive(x, y) == 0 && aliveNeighbours == 3){
+        if(isAlive(x, y) == false && aliveNeighbours == 3){
           tempBoard[x][y] = 1;
         }
-        else if(isAlive(x, y) == 1 && aliveNeighbours < 2){
+        else if(isAlive(x, y) == true && aliveNeighbours < 2){
           tempBoard[x][y] = 0;
         }
-        else if(isAlive(x, y) == 1 && (aliveNeighbours == 2 || aliveNeighbours == 3)){
+        else if(isAlive(x, y) == true && (aliveNeighbours == 2 || aliveNeighbours == 3)){
           tempBoard[x][y] = 1;
         }
-        else if (isAlive(x, y) == 1 && (aliveNeighbours > 3)){
+        else if (isAlive(x, y) == true && (aliveNeighbours > 3)){
           tempBoard[x][y] = 0;
         }
       }
@@ -85,15 +88,23 @@ public class Life implements ILife {
   }
 
   public int countAliveNeughbours(int x, int y){
-    int count = 0;
-    count += isAlive(x-1,y-1);
-    count += isAlive(x,y-1);
-    count += isAlive(x+1,y-1);
-    count += isAlive(x-1,y);
-    count += isAlive(x+1,y);
-    count += isAlive(x-1,y+1);
-    count += isAlive(x,y+1);
-    count += isAlive(x+1,y+1);
-    return count;
+    int counter = 0;
+		if (isAlive(x-1, y-1))
+			counter++;
+		if (isAlive(x, y-1))
+			counter++;
+		if (isAlive(x+1, y-1))
+			counter++;
+		if (isAlive(x-1, y))
+			counter++;
+		if (isAlive(x+1, y))
+			counter++;
+		if (isAlive(x-1, y+1))
+			counter++;
+		if (isAlive(x, y+1))
+			counter++;
+		if (isAlive(x+1, y+1))
+			counter++;
+    return counter;
   }
 }

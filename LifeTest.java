@@ -15,7 +15,7 @@ public class LifeTest {
         l.nextGeneration();
 
         // Assert: Rasterpunkt mit drei Nachbarn sollte jetzt leben
-        assertEquals(l.isAlive(1,1), 1);
+        assertTrue(l.isAlive(1,1));
     }
 
 
@@ -27,7 +27,7 @@ public class LifeTest {
       // Act: Berechnung der Folgegeneration
       l.nextGeneration();
       // Assert: Einsamer Rasterpunkt sollte nun tot sein
-      assertEquals("Error: lonely cell still alive", l.isAlive(3,2), 0);
+      assertFalse("Error: lonely cell still alive", l.isAlive(3,2));
     }
 
 
@@ -39,7 +39,7 @@ public class LifeTest {
       l.setAlive(3,1);
       l.setAlive(3,2);
       l.nextGeneration();
-      assertEquals("Error: cell with two neighbors died",l.isAlive(3,2), 1);
+      assertTrue("Error: cell with two neighbors died",l.isAlive(3,2));
        // Test Case for 3 living neighbors
       Life f = new Life(5,5);
       f.setAlive(2,2);
@@ -47,7 +47,7 @@ public class LifeTest {
       f.setAlive(2,1);
       f.setAlive(3,2);
       f.nextGeneration();
-      assertEquals("Error: cell with three neighbors died", f.isAlive(3,2), 1);
+      assertTrue("Error: cell with three neighbors died", f.isAlive(3,2));
     }
 
 
@@ -60,7 +60,7 @@ public class LifeTest {
       l.setAlive(4,2);
       l.setAlive(3,2);
       l.nextGeneration();
-      assertEquals("Error: cell with more then three neighbors survived", l.isAlive(3,2), 0);
+      assertFalse("Error: cell with more then three neighbors survived", l.isAlive(3,2));
     }
 
 
